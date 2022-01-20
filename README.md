@@ -1,6 +1,8 @@
 # tsoha-keskusteluapp
 
-KeskusteluApp on klassinen foorumin kaltainen sovellus, jossa käyttäjät voivat luoda keskustelualueille uusia viestiketjuja ja lisätä niihin uusia viestejä. 
+KeskusteluApp on klassinen keskutelufoorumi, johon käyttäjät voivat luoda viestiketjuja keskustelualueille ja lisätä niihin uusia viestejä sekä muokata niitä. 
+
+KeskusteluApp on toteutettu käyttäen Pythonin [Flask](https://palletsprojects.com/p/flask/) kirjastoa.
 
 ## Ominaisuudet
 - Käyttäjä voi luoda uuden tunnuksen ja kirjautua sillä sisään sekä ulos.
