@@ -1,0 +1,30 @@
+{# TODO: google best practices for placing macros. I should also make reusable component for entire board view.. #}
+{% macro board_row(thread) -%}
+  <div class="row">
+    <a href="{{ url_for('thread.show_thread', thread_id=thread.id) }}">
+      <div class="column title-column">{{ thread.title }}</div>
+    </a>
+    {# TODO: fallback for empty thread #}
+    <a href="{{ url_for('thread.show_thread', thread_id=thread.id) }}#{{ thread.last_reply.id}}">
+      <div class="column reply-column right">Last reply: {{ thread.last_reply.created_at }} ></div>
+    </a>
+  </div>
+{%- endmacro %}
+
+{% extends "layout.j2" %}
+
+{% block title %}Index{% endblock %}
+{% block header %}
+    <h1>Boards</h1>
+    <p>Here's list of various boards where you can chat pseudonymously with strangers</p>
+{% endblock %}
+
+{% block content %}
+    {% for board in boards %}
+        <h2>{{ board.name }}</h2>
+        {% for thread in board.recent_threads %}
+            {{ board_row(thread) }}
+        {% endfor %}
+        {# TODO: "See more" #}
+    {% endfor %}
+{% endblock %}

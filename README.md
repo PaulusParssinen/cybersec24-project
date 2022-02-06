@@ -14,3 +14,10 @@ KeskusteluApp on toteutettu käyttäen Pythonin [Flask](https://palletsprojects.
 - Käyttäjä voi etsiä kaikki viestit, joiden osana on annettu sana.
 - Ylläpitäjä voi lisätä ja poistaa keskustelualueita.
 - Ylläpitäjä voi luoda salaisen alueen ja määrittää, keillä käyttäjillä on pääsy alueelle.
+
+## Asennus
+
+
+## Edistys
+- [x] Kirjautuminen ja rekisteröityminen
+- [ ] Kaikki muu vielä kesken mutta pääosin suunniteltu (koodissa stubattu rajapinnat pääosin valmiiksi)

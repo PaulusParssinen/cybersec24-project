@@ -1,0 +1,163 @@
+:root {
+    --bg-primary: #121212;
+    --bg-secondary: rgba(0,0,0,0.24);
+    --bg-tertiary: rgba(0,0,0,0.16);
+
+    --menu-bg: #0B0B0B;
+    --menu-active-bg: #212121;
+
+    --card-bg: #212121;
+
+    --accent-text: #4f7ADF;
+    --accent-fill: #224189;
+
+    --text-primary: #FFF;
+    --text-secondary: rgba(255,255,255,0.68);
+    --text-tertiary: rgba(255,255,255,0.60);
+
+    --border-color: rgba(255,255,255,0.24);
+    --border-color-secondary: rgba(255,255,255,0.08);
+    --border-color-tertiary: rgba(0,0,0,0.40);
+    --divider-color: rgba(255,255,255,0.12);
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    
+    font-family: Ubuntu;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.65;
+
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: var(--menu-bg);
+    overflow: hidden;
+
+    padding: 16px;
+}
+header {
+    padding: 16px;
+}
+section {
+    padding: 32px 16px;
+    margin: 0 auto 32px;
+    overflow: hidden;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Ubuntu Mono', monospace;
+    font-weight: 700;
+    padding: 0;
+}
+p {
+    font-family: Ubuntu;
+}
+a {
+    color: var(--accent-text);
+    font-family: 'Ubuntu Mono', monospace;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline var(--accent-text);
+}
+
+.text-small {
+    font-size: 16px;
+}
+
+nav #menu {
+    float: right;
+}
+
+#menu a {
+    padding: 8px;
+}
+
+label {
+    display: block;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 19px;
+    margin-bottom: 4px;
+}
+
+input, textarea {
+    background-color: var(--background-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    
+    color: var(--text-primary);
+    font: inherit;
+    
+    padding: 0 12px;
+    max-width: 400px;
+    width: calc(100% - 32px);
+}
+input[type=text], input[type=password] {
+    height: 42px;
+}
+button, input[type=submit], input[type=button] {
+    border-radius: 0;
+    border: 1px solid var(--accent-text);
+    background-color: rgba(255,255,255,0.0);
+
+    font-family: Ubuntu;
+    font-size: 18px;
+    font-weight: 500;
+
+    padding: 0 24px;
+    height: 44px;
+}
+input[type=text]:hover, input[type=password]:hover, textarea:hover {
+    border-color: var(--accent-text);
+} 
+
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 0 1px var(--border-color);
+    outline: none;
+} 
+input[type=submit] {
+    background-color: var(--accent-fill);
+    border-color: var(--accent-fill);
+    color: var(--text-primary);
+}
+
+.center {
+    text-align: center;
+}
+.right {
+    text-align: right;
+}
+
+.box {
+    padding: 16px 32px;
+}
+.box-error {
+    background-color: rgba(166, 0, 0, 0.08);
+    color: #A60000;
+}
+
+.row {
+    background-color: var(--bg-tertiary);
+    overflow: auto;
+    padding: 10px 8px;
+}
+.row:nth-child(2n) {
+    background-color: transparent;
+}
+.row a:hover {
+    text-decoration: underline var(--text-primary);
+}
+.column {
+    color: var(--text-primary)
+}
+.title-column { 
+    float: left;
+    width: 66%;
+}
+.reply-column { }

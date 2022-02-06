@@ -1,0 +1,28 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - ChatApp</title>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:ital,wght@0,300;0,500;1,300;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  <a href="{{ url_for('root.index') }}">ChatApp</a>
+  <div id="menu">
+    {% if session.user_id %}
+      <span>{{ session['username'] }}</span>
+      <a href="{{ url_for('root.logout') }}">Log Out</a>
+    {% else %}
+      <a href="{{ url_for('root.index') }}">Home</a>
+      <a href="{{ url_for('root.register') }}">Register</a>
+      <a href="{{ url_for('root.login') }}">Login</a>
+    {% endif %}
+  </div>
+</nav>
+<main>  
+  <section class="content">
+    <header>
+      {% block header %}{% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+      <div class="box box-error">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </section>
+</main>
