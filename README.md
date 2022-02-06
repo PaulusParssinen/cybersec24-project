@@ -1,4 +1,4 @@
-# tsoha-keskusteluapp
+# tsoha-keskusteluapp - Live demo @ https://tsoha-chatapp.herokuapp.com
 
 KeskusteluApp on klassinen keskutelufoorumi, johon käyttäjät voivat luoda viestiketjuja keskustelualueille ja lisätä niihin uusia viestejä sekä muokata niitä. 
 
@@ -14,9 +14,6 @@ KeskusteluApp on toteutettu käyttäen Pythonin [Flask](https://palletsprojects.
 - Käyttäjä voi etsiä kaikki viestit, joiden osana on annettu sana.
 - Ylläpitäjä voi lisätä ja poistaa keskustelualueita.
 - Ylläpitäjä voi luoda salaisen alueen ja määrittää, keillä käyttäjillä on pääsy alueelle.
-
-## Asennus
-
 
 ## Edistys
 - [x] Kirjautuminen ja rekisteröityminen
