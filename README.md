@@ -18,3 +18,22 @@ KeskusteluApp on toteutettu käyttäen Pythonin [Flask](https://palletsprojects.
 ## Edistys
 - [x] Kirjautuminen ja rekisteröityminen
 - [ ] Kaikki muu vielä kesken mutta pääosin suunniteltu (koodissa stubattu rajapinnat pääosin valmiiksi)
+
+## Asennus
+```bash
+$ git clone https://github.com/PaulusParssinen/tsoha-keskusteluapp.git
+$ cd tsoha-keskusteluapp
+
+$ virtualenv env
+$ source env/bin/activate
+
+$ pip3 install -r requirements.txt
+
+# Kopioi pohja ja aseta siinä vaaditut asetukset
+$ cp .env.example .env
+
+# Jos haluat kehittäjäympäristön käyttöön
+$ export FLASK_ENV=development
+
+$ flask run
+```
