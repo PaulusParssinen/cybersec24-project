@@ -47,6 +47,7 @@ section {
     padding: 32px 16px;
     margin: 0 auto 32px;
     overflow: hidden;
+    max-width: 1280px;
 }
 
 h1, h2, h3, h4 {
@@ -64,6 +65,9 @@ a {
 }
 a:hover {
     text-decoration: underline var(--accent-text);
+}
+a .lighter {
+    opacity: 0.5;
 }
 
 .text-small {
@@ -100,10 +104,17 @@ input, textarea {
 input[type=text], input[type=password] {
     height: 42px;
 }
+textarea {
+    max-width: 720px;
+}
+
 button, input[type=submit], input[type=button] {
     border-radius: 0;
     border: 1px solid var(--accent-text);
     background-color: rgba(255,255,255,0.0);
+    color: var(--accent-text);
+
+    cursor: pointer;
 
     font-family: Ubuntu;
     font-size: 18px;
@@ -112,6 +123,15 @@ button, input[type=submit], input[type=button] {
     padding: 0 24px;
     height: 44px;
 }
+button, input[type=submit] {
+    background-color: var(--accent-fill);
+    border-color: var(--accent-fill);
+    color: var(--text-primary);
+}
+button:hover, input[type=submit]:hover {
+    opacity: 0.70;
+}
+
 input[type=text]:hover, input[type=password]:hover, textarea:hover {
     border-color: var(--accent-text);
 } 
@@ -121,11 +141,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
     box-shadow: 0 0 0 1px var(--border-color);
     outline: none;
 } 
-input[type=submit] {
-    background-color: var(--accent-fill);
-    border-color: var(--accent-fill);
-    color: var(--text-primary);
-}
+
 
 .center {
     text-align: center;
@@ -135,12 +151,23 @@ input[type=submit] {
 }
 
 .box {
+    margin: 16px;
     padding: 16px 32px;
 }
-.box-error {
+.box.error {
     background-color: rgba(166, 0, 0, 0.08);
-    color: #A60000;
+    color: rgb(166, 0, 0);
 }
+.box.info {
+    background-color:rgba(0, 100, 166, 0.08);
+    color: rgb(0, 100, 166);
+}
+.box.success {
+    background-color: rgba(0, 166, 0, 0.08);
+    color: rgb(0, 166, 0);
+}
+
+
 
 .row {
     background-color: var(--bg-tertiary);

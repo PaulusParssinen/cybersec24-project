@@ -17,7 +17,15 @@ KeskusteluApp on toteutettu käyttäen Pythonin [Flask](https://palletsprojects.
 
 ## Edistys
 - [x] Kirjautuminen ja rekisteröityminen
-- [ ] Kaikki muu vielä kesken mutta pääosin suunniteltu (koodissa stubattu rajapinnat pääosin valmiiksi)
+- [x] Keskustelualueen luominen
+- [x] Keskusteluketjun lueminen & muokkaaminen
+- [x] Keskusketjuun viestin lisääminen & muokkaaminen
+- [ ] Oikeuksien tarkastaminen/hallinta
+- [ ] Haku
+- [ ] Moderointi
+- [ ] Profiilikuvat
+- [ ] Sisällön postaminen
+- [ ] CSRF
 
 ## Asennus
 ```bash

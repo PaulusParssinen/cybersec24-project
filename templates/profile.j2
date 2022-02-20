@@ -1,0 +1,14 @@
+{% extends "layout.j2" %}
+
+{% block title %}{{ user.username | e}} - Profile{% endblock %}
+{% block header %}<h1>{{ user.username | e}} - Profile</h1>{% endblock %}
+{% block content %}
+<form action="{{ url_for('user.edit_profile', user_id=user.id) }}" method="post">
+    <p>
+        <label for="title">Username</label>
+        <input disabled type="text" name="title" value="{{ user.username | e }}"/>
+    </p>
+    <p>Joined on {{ user.created_at | short_date }}</p>
+    <!-- <input disabled class="accent-fill" type="submit" value="Save"> -->
+</form>
+{% endblock %}

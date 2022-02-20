@@ -1,0 +1,11 @@
+{% extends "layout.j2" %}
+
+{% block title %}{{ board.title | e }}{% endblock %}
+{% block header %}
+    <h1>{{ board.title | e}}</h1>
+    <p>{{ board.description | e }}</p>
+{% endblock %}
+
+{% block content %}
+    {{ render_board(board, threads) }}
+{% endblock %}

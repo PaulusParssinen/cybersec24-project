@@ -1,28 +1,75 @@
+{% macro render_post(post) -%}
+    <div class="post">
+        <a href="{{ url_for('user.show_profile', user_id=post.user_id) }}">
+            <h3>{{ post.user_id | username | e }}</h3>
+        </a>
+        <p>{{ post.content_body | e }}</p>
+        {% if post.user_id == session.id %}
+            <a href="{{ url_for('thread.edit_post', thread_id=post.thread_id, post_id=post.id) }}">Edit</a>
+            {# <a href="{{ url_for('thread.delete_post', thread_id=post.thread_id, post_id=post.id) }}">Delete</a>#}
+        {% endif %}
+        <div style="clear: both;"></div>
+    </div>
+{%- endmacro %}
+
+{% macro board_row(thread) -%}
+    <div class="row">
+        <a href="{{ url_for('thread.show_thread', thread_id=thread.id) }}">
+            <div class="column title-column">{{ thread.title | e}}</div>
+        </a>
+        {% if thread.last_post_id != None %}
+            <a href="{{ url_for('thread.show_thread', thread_id=thread.id) }}#{{ thread.last_post_id}}">
+                <div class="column reply-column right">Last post: {{ thread.last_created_at | short_date }} »</div>
+            </a>
+        {% else %}
+            <a href="{{ url_for('thread.show_thread', thread_id=thread.id) }}">
+                <div class="column reply-column right">Last post: none</div>
+            </a>
+        {% endif %}
+    </div>
+{%- endmacro %}
+{% macro render_board(board, threads, see_more=False) -%}
+    <div class="board">
+        <h2 style="float: left;">{{ board.name | e}}</h2>
+        <a href="{{ url_for('board.create_thread', board_id=board.id) }}">
+            <button type="button" style="float: right;">New thread</button>
+        </a>
+        <div style="clear: both;"></div>
+        <div>
+            {% for thread in threads %}
+                {{ board_row(thread) }}
+            {% endfor %}
+        </div>
+        {% if see_more %}
+            <a href="{{ url_for('board.show_board', board_id=board.id) }}">See more »</a>
+        {% endif %}
+        <div style="clear: both;"></div>
+    </div>
+{%- endmacro %}
+
 <!doctype html>
 <title>{% block title %}{% endblock %} - ChatApp</title>
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:ital,wght@0,300;0,500;1,300;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
-  <a href="{{ url_for('root.index') }}">ChatApp</a>
-  <div id="menu">
-    {% if session.user_id %}
-      <span>{{ session['username'] }}</span>
-      <a href="{{ url_for('root.logout') }}">Log Out</a>
-    {% else %}
-      <a href="{{ url_for('root.index') }}">Home</a>
-      <a href="{{ url_for('root.register') }}">Register</a>
-      <a href="{{ url_for('root.login') }}">Login</a>
-    {% endif %}
-  </div>
+    <a href="{{ url_for('root.index') }}">ChatApp</a>
+    <div id="menu">
+        {% if session.id %}
+            <span>{{ session.username|e }}</span>
+            <a href="{{ url_for('root.logout') }}">Log Out</a>
+        {% else %}
+            <a href="{{ url_for('root.index') }}">Home</a>
+            <a href="{{ url_for('root.register') }}">Register</a>
+            <a href="{{ url_for('root.login') }}">Login</a>
+        {% endif %}
+    </div>
 </nav>
 <main>  
   <section class="content">
-    <header>
-      {% block header %}{% endblock %}
-    </header>
-    {% for message in get_flashed_messages() %}
-      <div class="box box-error">{{ message }}</div>
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+        <div class="box {{ category }}">{{ message }}</div>
     {% endfor %}
+    <header>{% block header %}{% endblock %}</header>
     {% block content %}{% endblock %}
   </section>
 </main>

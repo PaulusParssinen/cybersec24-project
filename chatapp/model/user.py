@@ -12,22 +12,42 @@ def create(username, password):
         current_app.logger.error(ex)
         return False
     return login(username, password)
-    
+
+def get(id):
+    sql = "SELECT * FROM users WHERE id=:id"
+    result = db.session.execute(sql, { "id": id })
+    return result.fetchone()
+
+def update(user_id, username=None, password=None): pass
+def add_avatar(): pass
+
+def delete(id):
+    try:
+        sql = "DELETE FROM users WHERE id=:id"
+        db.session.execute(sql, { "id": id })
+        db.session.commit()
+        return True
+    except BaseException as ex:
+        current_app.logger.error(ex)
+    return False
+
 def login(username, password):
-    sql = "SELECT id, password FROM users WHERE username=:username"
+    sql = "SELECT * FROM users WHERE username=:username"
     result = db.session.execute(sql, { "username": username })
     user = result.fetchone()
     
     if user and check_password_hash(user.password, password):
-        session["user_id"] = user.id
+        populate_session(user)
         return True
     return False
 
-def delete(user_id): pass
-def edit(): pass
+def populate_session(user):
+    session["id"] = user.id
+    session["username"] = user.username
 
 def logout(): 
-    del session["user_id"]
+    session.pop("id", None)
+    session.pop("username", None)
 
 def current_user_id():
-    return session.get("user_id", 0)
+    return session.get("id", 0)

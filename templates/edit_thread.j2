@@ -1,0 +1,17 @@
+{% extends "layout.j2" %}
+
+{% block title %}Edit thread{% endblock %}
+{% block header %}<h1>Edit thread</h1>{% endblock %}
+{% block content %}
+<form action="{{ url_for('thread.edit_thread', thread_id=thread.id) }}" method="post">
+    <p>
+        <label for="title">Title</label>
+        <input type="text" name="title" value="{{ thread.title | e}}"/>
+    </p>
+    <p>
+        <label for="body">Content body</label> 
+        <textarea name="body" rows="7">{{ thread.content_body | e}}</textarea>
+    </p>
+    <input class="accent-fill" type="submit" value="Edit">
+</form>
+{% endblock %}
