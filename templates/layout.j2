@@ -31,9 +31,11 @@
 {% macro render_board(board, threads, see_more=False) -%}
     <div class="board">
         <h2 style="float: left;">{{ board.name | e}}</h2>
-        <a href="{{ url_for('board.create_thread', board_id=board.id) }}">
-            <button type="button" style="float: right;">New thread</button>
-        </a>
+        {% if session.id %}
+            <a href="{{ url_for('board.create_thread', board_id=board.id) }}">
+                <button type="button" style="float: right;">New thread</button>
+            </a>
+        {% endif %}
         <div style="clear: both;"></div>
         <div>
             {% for thread in threads %}
