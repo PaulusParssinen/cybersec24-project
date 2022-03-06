@@ -5,12 +5,12 @@ from chatapp.route import authenticated
 user_bp = Blueprint("user", __name__, url_prefix="/user")
 
 @user_bp.route("/<int:user_id>", methods=["GET"])
-@authenticated()
+@authenticated
 def show_profile(user_id):
     return render_template("profile.j2", user=user.get(user_id))
 
 @user_bp.route("/<int:user_id>/edit", methods=["POST"])
-@authenticated()
+@authenticated
 def edit_profile(user_id):
     edited_post = user.update(user_id, request.form["username"])
     

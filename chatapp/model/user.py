@@ -1,6 +1,6 @@
 from flask import session, current_app
 from chatapp.db import db
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash, secrets
 
 def create(username, password):
     password_hash = generate_password_hash(password)
@@ -61,6 +61,7 @@ def login(username, password):
 def populate_session(user):
     session["id"] = user.id
     session["username"] = user.username
+    session["csrf_token"] = secrets.token_hex(16)
 
 def logout(): 
     session.pop("id", None)

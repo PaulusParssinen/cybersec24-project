@@ -4,6 +4,7 @@
 {% block header %}<h1>{{ user.username | e}} - Profile</h1>{% endblock %}
 {% block content %}
 <form action="{{ url_for('user.edit_profile', user_id=user.id) }}" method="post">
+    {{ add_csrf_token() }}
     <p>
         <label for="username">Username</label>
         <input {{ 'disabled' if user.id != session.id else '' }} type="text" name="username" value="{{ user.username | e }}"/>

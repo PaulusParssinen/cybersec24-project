@@ -23,9 +23,8 @@ KeskusteluApp on toteutettu käyttäen Pythonin [Flask](https://palletsprojects.
 - [x] Oikeuksien tarkastaminen
 - [x] Haku
 - [x] Sisällön postaminen
-- [ ] Moderointi
-- [ ] Profiilin muokkaaminen
-- [ ] CSRF
+- [x] Profiilin muokkaaminen
+- [x] CSRF
 
 ## Asennus
 ```bash

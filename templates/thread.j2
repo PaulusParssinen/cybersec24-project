@@ -2,25 +2,34 @@
 
 {% block title %}{{ thread.title | e}}{% endblock %}
 {% block header %}
-    <h1>{{ thread.title | e}}</h1>
-    <p>{{ thread.content_body | e }}</p>
-    {% if thread.user_id == session.id %}
-        <a href="{{ url_for('thread.edit_thread', thread_id=thread.id) }}">Edit</a>
-        <a href="{{ url_for('thread.delete_thread', thread_id=thread.id) }}">Delete</a>
-    {% endif %}
+    <div class="post">
+        <h1>{{ thread.title | e}}</h1> by <a href="{{ url_for('user.show_profile', user_id=thread.user_id) }}">{{ thread.user_id | username | e }}</a>
+        <div class="message">
+            <p>{{ thread.content_body | e }}</p>
+            {% if thread.user_id == session.id %}
+                <a href="{{ url_for('thread.edit_thread', thread_id=thread.id) }}">Edit</a>
+                <a href="{{ url_for('thread.delete_thread', thread_id=thread.id) }}">Delete</a>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
 
 {% block content %}
     {% for post in posts %}
         {{ render_post(post) }}
     {% endfor %}
-    <div>
-        <form action="{{ url_for('thread.add_post', thread_id=thread.id) }}" method="post">
-            <p>
-                <label for="body">Message</label>
-                <textarea name="body" rows="5"></textarea>
-            </p>
-            <input class="accent-fill" type="submit" value="Add reply">
-        </form>
+    <div class="add-reply">
+        {% if session.id %}
+            <form action="{{ url_for('thread.add_post', thread_id=thread.id) }}" method="post">
+                {{ add_csrf_token() }}
+                <p>
+                    <label for="body">Message</label>
+                    <textarea name="body" rows="5"></textarea>
+                </p>
+                <input class="accent-fill" type="submit" value="Add reply">
+            </form>
+        {% else %}
+            <a href="{{ url_for('root.login') }}">Login</a> or <a href="{{ url_for('root.register') }}">register</a> inorder to reply to the thread.
+        {% endif %}
     </div>
 {% endblock %}

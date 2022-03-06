@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from chatapp.model import user, board, thread, post
-from chatapp.route import authenticated
+from chatapp.route import authenticated, csrf
 
 thread_bp = Blueprint("thread", __name__, url_prefix="/thread")
 
@@ -10,7 +10,8 @@ def show_thread(thread_id):
     return render_template("thread.j2", thread=thread.get(thread_id), posts=posts)
 
 @thread_bp.route("/<int:thread_id>/edit", methods=["GET", "POST"])
-@authenticated()
+@authenticated
+@csrf
 def edit_thread(thread_id):
     if request.method == "GET":
         return render_template("edit_thread.j2", thread=thread.get(thread_id))
@@ -27,7 +28,7 @@ def edit_thread(thread_id):
     return redirect(url_for("thread.show_thread", thread_id=edited_thread.id))
 
 @thread_bp.route("/<int:thread_id>/delete", methods=["GET"])
-@authenticated()
+@authenticated
 def delete_thread(thread_id):
     thread.delete(thread_id)
     
@@ -35,7 +36,8 @@ def delete_thread(thread_id):
     return redirect(url_for("root.index"))
 
 @thread_bp.route("/<int:thread_id>", methods=["POST"])
-@authenticated()
+@authenticated
+@csrf
 def add_post(thread_id):
     created_post = post.create(thread_id, user.current_user_id(), request.form["body"])
     if not created_post:
@@ -46,7 +48,8 @@ def add_post(thread_id):
     return redirect(url_for("thread.show_thread", thread_id=thread_id))
 
 @thread_bp.route("/<int:thread_id>/<int:post_id>/edit", methods=["GET", "POST"])
-@authenticated()
+@authenticated
+@csrf
 def edit_post(thread_id, post_id):
     if request.method == "GET":
         return render_template("edit_post.j2", post=post.get(post_id))
@@ -61,7 +64,7 @@ def edit_post(thread_id, post_id):
     return redirect(url_for("thread.show_thread", thread_id=edited_post.thread_id))
 
 @thread_bp.route("/<int:thread_id>/<int:post_id>/delete", methods=["GET"])
-@authenticated()
+@authenticated
 def delete_post(thread_id, post_id):
     post.delete(post_id)
     

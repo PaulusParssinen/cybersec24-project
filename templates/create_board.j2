@@ -4,6 +4,7 @@
 {% block header %}<h1>Create thread</h1>{% endblock %}
 {% block content %}
 <form action="{{ url_for('board.create_board') }}" method="post">
+    {{ add_csrf_token() }}
     <p>
         <label for="name">Title</label>
         <input type="text" name="name">

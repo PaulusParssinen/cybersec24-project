@@ -1,3 +1,6 @@
+{% macro add_csrf_token() -%}
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+{%- endmacro %}
 {% macro render_post_info(post) -%}
     <div class="info">
         <h3>
@@ -6,7 +9,6 @@
         <p class="text-small lighter">{{ post.created_at | date }}</p>
     </div>
 {%- endmacro %}
-
 {% macro render_post(post) -%}
     <div class="post">
         {{ render_post_info(post) }}
@@ -20,7 +22,6 @@
         <div style="clear: both;"></div>
     </div>
 {%- endmacro %}
-
 {% macro board_row(thread) -%}
     <div class="row">
         <a href="{{ url_for('thread.show_thread', thread_id=thread.id) }}">

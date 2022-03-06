@@ -67,10 +67,10 @@ a {
 a:hover {
     text-decoration: underline var(--accent-text);
 }
+
 .lighter {
     opacity: 0.5;
 }
-
 .text-small {
     font-size: 14px;
 }

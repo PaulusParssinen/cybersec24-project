@@ -4,6 +4,7 @@
 {% block header %}<h1>Edit post</h1>{% endblock %}
 {% block content %}
 <form action="{{ url_for('thread.edit_post', thread_id=post.thread_id, post_id=post.id) }}" method="post">
+    {{ add_csrf_token() }}
     <p>
         <label for="body">Message</label> 
         <textarea name="body" rows="7">{{ post.content_body | e}}</textarea>
