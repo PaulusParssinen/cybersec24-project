@@ -11,6 +11,7 @@ def show_profile(user_id):
 
 @user_bp.route("/<int:user_id>/edit", methods=["POST"])
 @authenticated
+@csrf
 def edit_profile(user_id):
     edited_post = user.update(user_id, request.form["username"])
     
