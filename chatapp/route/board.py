@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from chatapp.model import user, board, thread, post
 
-board_bp = Blueprint('board', __name__, url_prefix='/board')
+board_bp = Blueprint("board", __name__, url_prefix="/board")
 
 @board_bp.route("/<int:board_id>", methods=["GET"])
 def show_board(board_id): 
@@ -18,10 +18,10 @@ def create_board():
     
     if board_id is None:
         flash("Failed to create a board", "error")
-        return redirect(url_for('board.create_board', board_id=board_id))
+        return redirect(url_for("board.create_board", board_id=board_id))
     
     flash("Thread created succesfully!", "success")
-    return redirect(url_for('thread.show_thread', thread_id=thread_id))
+    return redirect(url_for("thread.show_thread", thread_id=thread_id))
 
 @board_bp.route("/<int:board_id>/new", methods=["GET", "POST"])
 def create_thread(board_id):
@@ -34,14 +34,14 @@ def create_thread(board_id):
     
     if created_thread is None:
         flash("Failed to create a thread", "error")
-        return redirect(url_for('board.create_thread', board_id=board_id))
+        return redirect(url_for("board.create_thread", board_id=board_id))
     
     flash("Thread created succesfully!", "success")
-    return redirect(url_for('thread.show_thread', thread_id=created_thread.id))
+    return redirect(url_for("thread.show_thread", thread_id=created_thread.id))
 
 @board_bp.route("/<int:board_id>/delete", methods=["POST"])
 def delete_board(board_id):
     board.delete(board_id)
     
     flash("Board deleted!", "info")
-    return redirect(url_for('root.index'))
+    return redirect(url_for("root.index"))

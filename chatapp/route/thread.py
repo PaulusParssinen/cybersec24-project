@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from chatapp.model import user, board, thread, post
 
-thread_bp = Blueprint('thread', __name__, url_prefix='/thread')
+thread_bp = Blueprint("thread", __name__, url_prefix="/thread")
 
 @thread_bp.route("/<int:thread_id>")
 def show_thread(thread_id):
@@ -22,14 +22,14 @@ def edit_thread(thread_id):
         return redirect(url_for('board.show_thread', board_id=board_id))
     
     flash("Thread was edited succesfully!", "success")
-    return redirect(url_for('thread.show_thread', thread_id=edited_thread.id))
+    return redirect(url_for("thread.show_thread", thread_id=edited_thread.id))
 
 @thread_bp.route("/<int:thread_id>/delete", methods=["POST"])
 def delete_thread(thread_id):
     thread.delete(thread_id)
     
     flash("Thread deleted!", "info")
-    return redirect(url_for('root.index'))
+    return redirect(url_for("root.index"))
 
 @thread_bp.route("/<int:thread_id>", methods=["POST"])
 def add_post(thread_id):
@@ -39,7 +39,7 @@ def add_post(thread_id):
     else: 
         flash("Post added succesfully", "success")
     
-    return redirect(url_for('thread.show_thread', thread_id=thread_id))
+    return redirect(url_for("thread.show_thread", thread_id=thread_id))
 
 @thread_bp.route("/<int:thread_id>/<int:post_id>/edit", methods=["GET", "POST"])
 def edit_post(thread_id, post_id):
@@ -50,14 +50,14 @@ def edit_post(thread_id, post_id):
     
     if edited_post is None:
         flash("Failed to edit the thread", "error")
-        return redirect(url_for('board.show_thread', board_id=board_id))
+        return redirect(url_for("board.show_thread", board_id=board_id))
     
     flash("Thread was edited succesfully!", "success")
-    return redirect(url_for('thread.show_thread', thread_id=edited_post.thread_id))
+    return redirect(url_for("thread.show_thread", thread_id=edited_post.thread_id))
 
 @thread_bp.route("/<int:thread_id>/<int:post_id>/delete", methods=["POST"])
 def delete_post(thread_id, post_id):
     post.delete(post_id)
     
     flash("Post deleted!", "info")
-    return redirect(url_for('root.index'))
+    return redirect(url_for("root.index"))

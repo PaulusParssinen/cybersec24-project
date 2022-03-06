@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from chatapp.model import user
 
-user_bp = Blueprint('user', __name__, url_prefix='/user')
+user_bp = Blueprint("user", __name__, url_prefix="/user")
 
 @user_bp.route("/<int:user_id>", methods=["GET"])
 def show_profile(user_id):

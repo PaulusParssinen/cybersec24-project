@@ -1,14 +1,14 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from chatapp.model import user, board, thread, post
 
-root_bp = Blueprint('root', __name__)
+root_bp = Blueprint("root", __name__)
 
-@root_bp.route('/')
+@root_bp.route("/")
 def index():
     # TODO: pass threads somehow
     return render_template("index.j2", boards=board.get_all())
 
-@root_bp.route('/login', methods=["GET", "POST"])
+@root_bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
         return render_template("login.j2")
@@ -20,13 +20,13 @@ def login():
         return redirect(url_for("root.login"))
     
     flash("Logged in!", "success")
-    return redirect(url_for('root.index'))
+    return redirect(url_for("root.index"))
 
 @root_bp.route("/logout")
 def logout():
     user.logout()
     flash("Logged out", "info")
-    return redirect(url_for('root.index'))
+    return redirect(url_for("root.index"))
 
 @root_bp.route("/register", methods=["GET", "POST"])
 def register():
@@ -39,10 +39,10 @@ def register():
 
     if password != password_again:
         flash("The passwords don't match!", "error")
-        return redirect(url_for('root.register'))
+        return redirect(url_for("root.register"))
 
     if not user.create(username, password):
         flash("Registration failed. Try another username", "error")
-        return redirect(url_for('root.register'))
+        return redirect(url_for("root.register"))
 
-    return redirect(url_for('root.index'))
+    return redirect(url_for("root.index"))

@@ -23,8 +23,8 @@ def create_app(show_routes=False):
     db.init_app(app)
     
     # Register Jinja filter
-    app.jinja_env.filters['username'] = get_username_filter
-    app.jinja_env.filters['short_date'] = short_date
+    app.jinja_env.filters["username"] = get_username_filter
+    app.jinja_env.filters["short_date"] = short_date
     
     # Register routes
     app.register_blueprint(root_bp)

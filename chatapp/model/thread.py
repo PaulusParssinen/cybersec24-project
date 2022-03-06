@@ -39,4 +39,6 @@ def delete(id):
         current_app.logger.error(ex)
     return False
 
-def search(text): pass
+def search(text):
+    sql = "SELECT * FROM threads WHERE text LIKE %:text%"
+    return db.session.execute(sql, { "text": text })
