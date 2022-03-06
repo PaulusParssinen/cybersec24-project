@@ -31,7 +31,7 @@ def update(id, title, body):
 
 def delete(id):
     try:
-        sql = "DELETE FROM boards WHERE id=:id"
+        sql = "DELETE FROM threads WHERE id=:id"
         db.session.execute(sql, { "id": id })
         db.session.commit()
         return True

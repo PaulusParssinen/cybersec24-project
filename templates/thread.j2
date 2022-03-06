@@ -6,7 +6,7 @@
     <p>{{ thread.content_body | e }}</p>
     {% if thread.user_id == session.id %}
         <a href="{{ url_for('thread.edit_thread', thread_id=thread.id) }}">Edit</a>
-        {# <a href="{{ url_for('thread.delete_thread', thread_id=thread.id) }}">Delete</a> #}
+        <a href="{{ url_for('thread.delete_thread', thread_id=thread.id) }}">Delete</a>
     {% endif %}
 {% endblock %}
 

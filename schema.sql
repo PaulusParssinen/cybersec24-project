@@ -36,8 +36,8 @@ CREATE TABLE threads (
 
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
-    thread_id INTEGER REFERENCES threads,
-    user_id INTEGER REFERENCES users,
+    thread_id INTEGER REFERENCES threads ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT Now(),
     content_body TEXT NOT NULL
 );
@@ -47,5 +47,3 @@ INSERT INTO user_groups (rank, name) VALUES (5, 'Moderator');
 INSERT INTO user_groups (rank, name) VALUES (10, 'Administrator');
 
 INSERT INTO boards (name, description) VALUES ('General', 'This board is for general discussion.');
-
-/* TODO: Cascading deletion */

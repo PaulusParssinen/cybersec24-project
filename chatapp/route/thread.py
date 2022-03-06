@@ -26,7 +26,7 @@ def edit_thread(thread_id):
     flash("Thread was edited succesfully!", "success")
     return redirect(url_for("thread.show_thread", thread_id=edited_thread.id))
 
-@thread_bp.route("/<int:thread_id>/delete", methods=["POST"])
+@thread_bp.route("/<int:thread_id>/delete", methods=["GET"])
 @authenticated()
 def delete_thread(thread_id):
     thread.delete(thread_id)
