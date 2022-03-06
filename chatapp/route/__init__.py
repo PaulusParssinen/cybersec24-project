@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import url_for, request, redirect, session, flash
+from flask import url_for, request, redirect, session, flash, abort
 
 from chatapp.model.user import has_group, has_rank
 

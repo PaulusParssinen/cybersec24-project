@@ -167,6 +167,10 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
     background-color: rgba(166, 0, 0, 0.08);
     color: rgb(166, 0, 0);
 }
+.box.warning {
+    background-color:rgba(166, 136, 0, 0.08);
+    color: rgb(166, 136, 0);
+}
 .box.info {
     background-color:rgba(0, 100, 166, 0.08);
     color: rgb(0, 100, 166);
