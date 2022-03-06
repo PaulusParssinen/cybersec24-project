@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from chatapp.model import user
-from chatapp.route import authenticated
+from chatapp.route import authenticated, csrf
 
 user_bp = Blueprint("user", __name__, url_prefix="/user")
 

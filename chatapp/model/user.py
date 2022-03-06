@@ -66,6 +66,7 @@ def populate_session(user):
 def logout(): 
     session.pop("id", None)
     session.pop("username", None)
+    session.pop("crsf_token", None)
 
 def current_user_id():
     return session.get("id", 0)
