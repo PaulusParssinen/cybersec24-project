@@ -7,10 +7,10 @@
     {{ add_csrf_token() }}
     <p>
         <label for="username">Username</label>
-        <input {{ 'disabled' if user.id != session.id else '' }} type="text" name="username" value="{{ user.username | e }}"/>
+        <input {{ '' if user.id == session.id or is_admin(session) else 'disabled' }} type="text" name="username" value="{{ user.username | e }}"/>
     </p>
     <p>Joined on {{ user.created_at | short_date }}</p>
-    {% if user.id == session.id %}
+    {% if user.id == session.id or is_admin(session) %}
         <input class="accent-fill" type="submit" value="Save">
     {% endif %}
 </form>

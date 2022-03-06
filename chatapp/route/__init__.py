@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import url_for, request, redirect, session, flash, abort
 
-from chatapp.model.user import has_group, has_rank
+from chatapp.model.user import has_group, has_rank, session_has_group
 
 # CSRF token verification
 def csrf(f):

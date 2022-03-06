@@ -4,10 +4,12 @@
 {% block header %}
     <h1>Boards</h1>
     <p>Here's list of various boards where you can chat pseudonymously with strangers</p>
-    {% if is_admin %}
-        <a href="{{ url_for('board.create_board') }}">
-            <button type="button">New board</button>
-        </a>
+    {% if is_mod(session) %}
+        {% if is_admin(session) %}
+            <a href="{{ url_for('board.create_board') }}">
+                <button type="button">New board</button>
+            </a>
+        {% endif %}
         <a href="{{ url_for('moderation.index') }}">
             <button type="button">Moderation Dashboard</button>
         </a>

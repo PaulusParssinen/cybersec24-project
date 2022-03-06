@@ -8,8 +8,7 @@ board_bp = Blueprint("board", __name__, url_prefix="/board")
 def show_board(board_id): 
     return render_template("board.j2", 
         board=board.get(board_id), 
-        threads=board.get_board_view(board_id),
-        is_admin=user.session_has_group("Administrator"))
+        threads=board.get_board_view(board_id))
 
 @board_bp.route("/create", methods=["GET", "POST"])
 @group_required("Administrator")

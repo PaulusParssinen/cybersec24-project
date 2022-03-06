@@ -33,7 +33,7 @@ def edit_thread(thread_id):
     
     thread_id = thread.update(thread_id, title, body)
     
-    if not edited_thread:
+    if not thread_id:
         flash("Failed to edit the thread", "error")
         return redirect(url_for('thread.edit_thread', thread_id=thread_id))
     

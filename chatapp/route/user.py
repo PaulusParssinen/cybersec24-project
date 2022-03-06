@@ -13,9 +13,9 @@ def show_profile(user_id):
 @authenticated
 @csrf
 def edit_profile(user_id):
-    edited_post = user.update(user_id, request.form["username"])
+    edited_user = user.update(user_id, request.form["username"])
     
-    if not edited_post:
+    if not edited_user:
         flash("Failed to edit the user profile", "error")
         return redirect(url_for("user.show_profile", user_id=user_id))
     

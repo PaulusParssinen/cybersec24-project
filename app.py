@@ -5,6 +5,7 @@ from flask import Flask
 
 from chatapp.db import db
 from chatapp.route import root_bp, user_bp, board_bp, thread_bp, moderation_bp
+from chatapp.model.user import is_admin, is_mod
 
 def format_short_date(value):
     return datetime.fromisoformat(str(value)).strftime("%x")
@@ -29,6 +30,10 @@ def create_app(show_routes=False):
     app.jinja_env.filters["username"] = get_username_filter
     app.jinja_env.filters["short_date"] = format_short_date
     app.jinja_env.filters["date"] = format_date
+    
+    # Register global Jinja helper fucntions
+    app.jinja_env.globals['is_mod'] = is_mod
+    app.jinja_env.globals['is_admin'] = is_admin
     
     # Register routes
     app.register_blueprint(root_bp)

@@ -82,6 +82,9 @@ def has_rank(user_id, min_rank):
     user_group = get_user_group(user_id)
     # Is the users rank equal or greater than the required group rank
     return min_rank <= user_group.rank
+
+def is_mod(session): return session_has_group("Moderator")
+def is_admin(session): return session_has_group("Administrator")
     
 def populate_session(user):
     session["id"] = user.id

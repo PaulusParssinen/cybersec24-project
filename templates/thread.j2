@@ -6,7 +6,7 @@
         <h1>{{ thread.title | e}}</h1> by <a href="{{ url_for('user.show_profile', user_id=thread.user_id) }}">{{ thread.user_id | username | e }}</a>
         <div class="message">
             <p>{{ thread.content_body | e }}</p>
-            {% if thread.user_id == session.id %}
+            {% if thread.user_id == session.id or is_mod(session) %}
                 <a href="{{ url_for('thread.edit_thread', thread_id=thread.id) }}">Edit</a>
                 <a href="{{ url_for('thread.delete_thread', thread_id=thread.id) }}">Delete</a>
             {% endif %}

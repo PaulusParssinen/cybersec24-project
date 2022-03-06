@@ -11,8 +11,7 @@ def index():
     for b in board.get_all():
         boards.append((b, board.get_board_view(b.id, 10)))
     
-    is_admin = user.session_has_group("Administrator")
-    return render_template("index.j2", boards=boards, is_admin=is_admin)
+    return render_template("index.j2", boards=boards)
 
 @root_bp.route("/login", methods=["GET", "POST"])
 @guest
@@ -57,7 +56,7 @@ def register():
         has_error |= True
     
     # Do not flood user with errors, check match only if we dont have earlier validation error
-    if not has_errors and password != password_again:
+    if not has_error and password != password_again:
         flash("The passwords don't match!", "error")
         has_error |= True
     

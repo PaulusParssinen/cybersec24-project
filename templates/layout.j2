@@ -14,7 +14,7 @@
         {{ render_post_info(post) }}
         <div class="message">
             <p>{{ post.content_body | e }}</p>
-            {% if post.user_id == session.id %}
+            {% if post.user_id == session.id or is_mod(session) %}
                 <a href="{{ url_for('thread.edit_post', thread_id=post.thread_id, post_id=post.id) }}">Edit</a>
                 <a href="{{ url_for('thread.delete_post', thread_id=post.thread_id, post_id=post.id) }}">Delete</a>
             {% endif %}
@@ -27,7 +27,7 @@
         <a href="{{ url_for('thread.show_thread', thread_id=thread.id) }}">
             <div class="column title-column">{{ thread.title | e}}</div>
         </a>
-        {% if thread.last_post_id != None %}
+        {% if thread.last_post_id %}
             <a href="{{ url_for('thread.show_thread', thread_id=thread.id) }}#{{ thread.last_post_id}}">
                 <div class="column reply-column right">Last post: {{ thread.last_created_at | short_date }} »</div>
             </a>
