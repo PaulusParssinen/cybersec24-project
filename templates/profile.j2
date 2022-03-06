@@ -5,10 +5,12 @@
 {% block content %}
 <form action="{{ url_for('user.edit_profile', user_id=user.id) }}" method="post">
     <p>
-        <label for="title">Username</label>
-        <input disabled type="text" name="title" value="{{ user.username | e }}"/>
+        <label for="username">Username</label>
+        <input {{ 'disabled' if user.id != session.id else '' }} type="text" name="username" value="{{ user.username | e }}"/>
     </p>
     <p>Joined on {{ user.created_at | short_date }}</p>
-    <!-- <input disabled class="accent-fill" type="submit" value="Save"> -->
+    {% if user.id == session.id %}
+        <input class="accent-fill" type="submit" value="Save">
+    {% endif %}
 </form>
 {% endblock %}

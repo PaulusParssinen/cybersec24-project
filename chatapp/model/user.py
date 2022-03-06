@@ -26,7 +26,16 @@ def get_user_group_by_name(group_name):
     sql = "SELECT id, rank, name FROM user_groups WHERE name=:name"
     return db.session.execute(sql, { "name": group_name }).fetchone()
 
-def update(user_id, username=None, password=None): pass
+def update(id, username): 
+    try:
+        sql = "UPDATE users SET username=:username WHERE id=:id RETURNING *"
+        result = db.session.execute(sql, { "id": id, "username": username })
+        db.session.commit()
+        return result.fetchone()
+    except BaseException as ex:
+        current_app.logger.error(ex)
+    return None
+
 def add_avatar(): pass
 
 def delete(id):

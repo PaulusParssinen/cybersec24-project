@@ -11,4 +11,12 @@ def show_profile(user_id):
 
 @user_bp.route("/<int:user_id>/edit", methods=["POST"])
 @authenticated()
-def edit_profile(user_id): pass
+def edit_profile(user_id):
+    edited_post = user.update(user_id, request.form["username"])
+    
+    if not edited_post:
+        flash("Failed to edit the user profile", "error")
+        return redirect(url_for("user.show_profile", user_id=user_id))
+    
+    flash("User profile was edited succesfully!", "success")
+    return redirect(url_for("user.show_profile", user_id=user_id))
