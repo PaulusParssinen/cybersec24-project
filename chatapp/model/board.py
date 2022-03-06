@@ -12,19 +12,19 @@ def create(name, description, min_rank=0):
     return None
 
 def get(id):
-    sql = "SELECT * FROM boards WHERE id=:id"
+    sql = "SELECT id, name, description, min_user_rank FROM boards WHERE id=:id"
     return db.session.execute(sql, { "id": id }).fetchone()
 
 def get_all():
     return db.session.execute("SELECT * FROM boards")
 
-def get_board_view(board_id):
+def get_board_view(board_id, limit=200):
     sql = "SELECT t.id, t.title as title, p.id AS last_post_id, p.created_at AS last_created_at FROM threads AS t " \
         "LEFT JOIN posts p ON t.id=p.thread_id WHERE t.board_id=:board_id AND "\
             "(p.id IS NULL OR "\
-                "p.id IN (SELECT MAX(id) FROM posts GROUP BY thread_id))"
+                "p.id IN (SELECT MAX(id) FROM posts GROUP BY thread_id)) LIMIT :limit"
     
-    return db.session.execute(sql, { "board_id": board_id })
+    return db.session.execute(sql, { "board_id": board_id, "limit": limit })
 
 def delete(id):
     try:

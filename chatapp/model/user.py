@@ -17,6 +17,12 @@ def get(id):
     sql = "SELECT * FROM users WHERE id=:id"
     return db.session.execute(sql, { "id": id }).fetchone()
 
+def get_current_user():
+    user_id = current_user_id()
+    if not user_id: 
+        return None
+    return get(user_id)
+
 def get_user_group(user_id):
     user = get(user_id)
     sql = "SELECT id, rank, name FROM user_groups WHERE id=:id"

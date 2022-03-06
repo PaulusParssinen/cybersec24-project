@@ -6,8 +6,12 @@ root_bp = Blueprint("root", __name__)
 
 @root_bp.route("/")
 def index():
-    # TODO: pass threads somehow
-    return render_template("index.j2", boards=board.get_all())
+    # Construct list of (board, recent_threads) pairs 
+    boards = []
+    for b in board.get_all():
+        boards.append((b, board.get_board_view(b.id, 10)))
+    
+    return render_template("index.j2", boards=boards)
 
 @root_bp.route("/login", methods=["GET", "POST"])
 @guest

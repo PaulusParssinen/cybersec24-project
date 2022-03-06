@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    {% for board in boards %}
+    {% for board, threads in boards %}
         {{ render_board(board, threads, see_more=True) }}
     {% endfor %}
 {% endblock %}
