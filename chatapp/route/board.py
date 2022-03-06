@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from chatapp.model import user, board, thread, post
+from chatapp.route import authenticated, group_required
 
 board_bp = Blueprint("board", __name__, url_prefix="/board")
 
@@ -8,6 +9,7 @@ def show_board(board_id):
     return render_template("board.j2", board=board.get(board_id), threads=board.get_board_view(board_id))
 
 @board_bp.route("/create", methods=["GET", "POST"])
+@group_required("Administrator")
 def create_board():
     if request.method == "GET":
         return render_template("create_board.j2")
@@ -24,6 +26,7 @@ def create_board():
     return redirect(url_for("thread.show_thread", thread_id=thread_id))
 
 @board_bp.route("/<int:board_id>/new", methods=["GET", "POST"])
+@authenticated()
 def create_thread(board_id):
     if request.method == "GET":
         return render_template("create_thread.j2", board_id=board_id)
@@ -40,6 +43,7 @@ def create_thread(board_id):
     return redirect(url_for("thread.show_thread", thread_id=created_thread.id))
 
 @board_bp.route("/<int:board_id>/delete", methods=["POST"])
+@group_required("Administrator")
 def delete_board(board_id):
     board.delete(board_id)
     

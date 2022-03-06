@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from chatapp.model import user, board, thread, post
+from chatapp.route import authenticated, guest
 
 root_bp = Blueprint("root", __name__)
 
@@ -9,12 +10,14 @@ def index():
     return render_template("index.j2", boards=board.get_all())
 
 @root_bp.route("/login", methods=["GET", "POST"])
+@guest()
 def login():
     if request.method == "GET":
         return render_template("login.j2")
 
     username = request.form["username"]
     password = request.form["password"]
+    
     if not user.login(username, password):
         flash("Details did not match with any user.", "error")
         return redirect(url_for("root.login"))
@@ -23,12 +26,14 @@ def login():
     return redirect(url_for("root.index"))
 
 @root_bp.route("/logout")
+@authenticated()
 def logout():
     user.logout()
     flash("Logged out", "info")
     return redirect(url_for("root.index"))
 
 @root_bp.route("/register", methods=["GET", "POST"])
+@guest()
 def register():
     if request.method == "GET":
         return render_template("register.j2")
@@ -48,6 +53,7 @@ def register():
     return redirect(url_for("root.index"))
 
 @root_bp.route("/search", methods=["GET", "POST"])
+@authenticated()
 def search():
     if request.method == "GET":
         return render_template("search.j2")

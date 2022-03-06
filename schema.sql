@@ -15,7 +15,7 @@ CREATE TABLE users (
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT Now(),
-    user_group_id INTEGER REFERENCES user_groups
+    user_group_id INTEGER REFERENCES user_groups DEFAULT 1 NOT NULL
 );
 
 CREATE TABLE boards (

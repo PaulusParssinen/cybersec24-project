@@ -15,8 +15,16 @@ def create(username, password):
 
 def get(id):
     sql = "SELECT * FROM users WHERE id=:id"
-    result = db.session.execute(sql, { "id": id })
-    return result.fetchone()
+    return db.session.execute(sql, { "id": id }).fetchone()
+
+def get_user_group(user_id):
+    user = get(user_id)
+    sql = "SELECT id, rank, name FROM user_groups WHERE id=:id"
+    return db.session.execute(sql, { "id": user.user_group_id }).fetchone()
+
+def get_user_group_by_name(group_name):
+    sql = "SELECT id, rank, name FROM user_groups WHERE name=:name"
+    return db.session.execute(sql, { "name": group_name }).fetchone()
 
 def update(user_id, username=None, password=None): pass
 def add_avatar(): pass
