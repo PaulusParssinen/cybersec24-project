@@ -27,8 +27,8 @@ CREATE TABLE boards (
 
 CREATE TABLE threads (
     id SERIAL PRIMARY KEY,
-    board_id INTEGER REFERENCES boards,
-    user_id INTEGER REFERENCES users,
+    board_id INTEGER REFERENCES boards ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT Now(),
     title TEXT NOT NULL,
     content_body TEXT NOT NULL
