@@ -16,7 +16,7 @@ def get(id):
     return db.session.execute(sql, { "id": id }).fetchone()
 
 def get_all(thread_id):
-    sql = "SELECT * FROM posts WHERE thread_id=:thread_id"
+    sql = "SELECT * FROM posts WHERE thread_id=:thread_id ORDER BY id"
     return db.session.execute(sql, { "thread_id": thread_id })
 
 def update(id, body):
