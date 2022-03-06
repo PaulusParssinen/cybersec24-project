@@ -11,7 +11,8 @@ def index():
     for b in board.get_all():
         boards.append((b, board.get_board_view(b.id, 10)))
     
-    return render_template("index.j2", boards=boards)
+    is_admin = user.session_has_group("Administrator")
+    return render_template("index.j2", boards=boards, is_admin=is_admin)
 
 @root_bp.route("/login", methods=["GET", "POST"])
 @guest

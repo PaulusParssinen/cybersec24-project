@@ -167,6 +167,11 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
     color: rgb(0, 166, 0);
 }
 
+.board {
+    padding: 24px 0 24px;
+    border-bottom: 1px solid var(--seperator-color);
+}
+
 .row {
     background-color: var(--bg-tertiary);
     overflow: auto;

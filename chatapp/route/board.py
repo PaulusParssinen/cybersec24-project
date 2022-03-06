@@ -21,10 +21,10 @@ def create_board():
     
     if not board_id:
         flash("Failed to create a board", "error")
-        return redirect(url_for("board.create_board", board_id=board_id))
+        return redirect(url_for("board.create_board"))
     
-    flash("Thread created succesfully!", "success")
-    return redirect(url_for("thread.show_thread", thread_id=thread_id))
+    flash("Board created succesfully!", "success")
+    return redirect(url_for("board.show_board", board_id=board_id))
 
 @board_bp.route("/<int:board_id>/new", methods=["GET", "POST"])
 @authenticated

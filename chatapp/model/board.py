@@ -6,7 +6,7 @@ def create(name, description, min_rank=0):
         sql = "INSERT INTO boards (name, description, min_user_rank) VALUES (:name, :description, :min_user_rank) RETURNING id"
         result = db.session.execute(sql, { "name": name, "description": description, "min_user_rank": min_rank })
         db.session.commit()
-        return result.fetchone()
+        return result.fetchone().id
     except BaseException as ex:
         current_app.logger.error(ex)
     return None

@@ -4,6 +4,11 @@
 {% block header %}
     <h1>Boards</h1>
     <p>Here's list of various boards where you can chat pseudonymously with strangers</p>
+    {% if is_admin %}
+        <a href="{{ url_for('board.create_board') }}">
+            <button type="button">New board</button>
+        </a>
+    {% endif %}
 {% endblock %}
 
 {% block content %}
