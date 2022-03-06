@@ -6,7 +6,10 @@ board_bp = Blueprint("board", __name__, url_prefix="/board")
 
 @board_bp.route("/<int:board_id>", methods=["GET"])
 def show_board(board_id): 
-    return render_template("board.j2", board=board.get(board_id), threads=board.get_board_view(board_id))
+    return render_template("board.j2", 
+        board=board.get(board_id), 
+        threads=board.get_board_view(board_id),
+        is_admin=user.session_has_group("Administrator"))
 
 @board_bp.route("/create", methods=["GET", "POST"])
 @group_required("Administrator")
@@ -46,6 +49,7 @@ def create_thread(board_id):
 
 @board_bp.route("/<int:board_id>/delete", methods=["POST"])
 @group_required("Administrator")
+@csrf
 def delete_board(board_id):
     board.delete(board_id)
     

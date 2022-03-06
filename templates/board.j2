@@ -8,4 +8,12 @@
 
 {% block content %}
     {{ render_board(board, threads) }}
+    <div class="board-bottom">
+        {% if is_admin %}
+            <form action="{{ url_for('board.delete_board', board_id=board.id) }}" method="post">
+                {{ add_csrf_token() }}
+                <input class="float-right accent-fill" type="submit" value="Delete board">
+            </form>
+        {% endif %}
+    </div>
 {% endblock %}
