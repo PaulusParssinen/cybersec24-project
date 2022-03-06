@@ -16,16 +16,29 @@ def edit_thread(thread_id):
     if request.method == "GET":
         return render_template("edit_thread.j2", thread=thread.get(thread_id))
     
-    title = request.form["title"]
-    body = request.form["body"]
-    edited_thread = thread.update(thread_id, title, body)
+    title = request.form["title"].strip()
+    body = request.form["body"].strip()
+    
+    has_error = False
+    if not title:
+        flash("Empty thread title is not allowed", error)
+        has_error |= True
+    
+    if not body:
+        flash("Empty thread body is not allowed", error)
+        has_error |= True
+    
+    if has_error:
+        return redirect(url_for('thread.edit_thread', thread_id=thread_id))
+    
+    thread_id = thread.update(thread_id, title, body)
     
     if not edited_thread:
         flash("Failed to edit the thread", "error")
-        return redirect(url_for('board.show_thread', thread_id=thread_id))
+        return redirect(url_for('thread.edit_thread', thread_id=thread_id))
     
     flash("Thread was edited succesfully!", "success")
-    return redirect(url_for("thread.show_thread", thread_id=edited_thread.id))
+    return redirect(url_for("thread.show_thread", thread_id=thread_id))
 
 @thread_bp.route("/<int:thread_id>/delete", methods=["GET"])
 @authenticated
@@ -54,7 +67,7 @@ def edit_post(thread_id, post_id):
     if request.method == "GET":
         return render_template("edit_post.j2", post=post.get(post_id))
     
-    edited_post = post.update(post_id, request.form["body"])
+    edited_post = post.update(post_id, request.form["body"].strip())
     
     if not edited_post:
         flash("Failed to edit the post", "error")

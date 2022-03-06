@@ -20,8 +20,8 @@ def login():
     if request.method == "GET":
         return render_template("login.j2")
 
-    username = request.form["username"]
-    password = request.form["password"]
+    username = request.form["username"].strip()
+    password = request.form["password"].strip()
     
     if not user.login(username, password):
         flash("Details did not match with any user.", "error")
@@ -43,14 +43,27 @@ def register():
     if request.method == "GET":
         return render_template("register.j2")
 
-    username = request.form["username"]
-    password = request.form["password"]
-    password_again = request.form["password_again"]
-
-    if password != password_again:
+    username = request.form["username"].strip()
+    password = request.form["password"].strip()
+    password_again = request.form["password_again"].strip()
+    
+    has_error = False
+    if len(username) < 6:
+        flash("Username must be atleast 6 characters long.", "error")
+        has_error |= True
+    
+    if len(password) < 6:
+        flash("Password must be atleast 6 characters long.", "error")
+        has_error |= True
+    
+    # Do not flood user with errors, check match only if we dont have earlier validation error
+    if not has_errors and password != password_again:
         flash("The passwords don't match!", "error")
+        has_error |= True
+    
+    if has_error:
         return redirect(url_for("root.register"))
-
+    
     if not user.create(username, password):
         flash("Registration failed. Try another username", "error")
         return redirect(url_for("root.register"))
@@ -72,8 +85,8 @@ def search():
     
     query_results = post.search(query)
     
-    if not query_results:
-        flash("No results were found for the search query!", "error")
+    if not query_results or query_results.rowcount == 0:
+        flash("No results were found for that query!", "error")
         return redirect(url_for("root.search"))
 
     return render_template("search_results.j2", query=query, results=query_results)

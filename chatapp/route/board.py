@@ -18,8 +18,8 @@ def create_board():
     if request.method == "GET":
         return render_template("create_board.j2")
     
-    name = request.form["name"]
-    description = request.form["description"]
+    name = request.form["name"].strip()
+    description = request.form["description"].strip()
     board_id = board.create(name, description)
     
     if not board_id:
@@ -36,8 +36,8 @@ def create_thread(board_id):
     if request.method == "GET":
         return render_template("create_thread.j2", board_id=board_id)
     
-    title = request.form["title"]
-    body = request.form["body"]
+    title = request.form["title"].strip()
+    body = request.form["body"].strip()
     created_thread = thread.create(board_id, user.current_user_id(), title, body)
     
     if not created_thread:

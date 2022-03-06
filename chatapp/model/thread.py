@@ -24,7 +24,7 @@ def update(id, title, body):
         sql = "UPDATE threads SET title=:title, content_body=:content_body WHERE id=:id RETURNING id"
         result = db.session.execute(sql, { "id": id, "title": title, "content_body": body })
         db.session.commit()
-        return result.fetchone()
+        return result.fetchone().id
     except BaseException as ex:
         current_app.logger.error(ex)
     return None
