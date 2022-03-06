@@ -42,8 +42,6 @@ def update(id, username):
         current_app.logger.error(ex)
     return None
 
-def add_avatar(): pass
-
 def delete(id):
     try:
         sql = "DELETE FROM users WHERE id=:id"
