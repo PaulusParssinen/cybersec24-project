@@ -6,4 +6,11 @@
     <p>Here you can monitor recent activity on the site.</p>
 {% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+    <div class="recent-users">
+        <h1>Last 25 registered users</h1>
+        {% for user in recent_users %}
+            <p><a href="{{ url_for('user.show_profile', user_id=user.id) }}">{{ user.username | e }}</a> was registed on {{ user.created_at | date }} </p>
+        {% endfor %}
+    </div>
+{% endblock %}

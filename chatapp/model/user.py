@@ -95,3 +95,7 @@ def logout():
 
 def current_user_id():
     return session.get("id", 0)
+
+def get_recent_users(count):
+    sql = "SELECT id, username, created_at FROM users ORDER BY id DESC LIMIT :limit"
+    return db.session.execute(sql, { "limit": count })
