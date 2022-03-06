@@ -58,6 +58,27 @@ def login(username, password):
         return True
     return False
 
+def session_has_rank(min_rank):
+    user_id = current_user_id()
+    if not user_id: 
+        return False
+    return has_rank(user_id, min_rank)
+
+def session_has_group(group_name):
+    user_id = current_user_id()
+    if not user_id: 
+        return False
+    return has_group(user_id, group_name)
+
+def has_group(user_id, group_name):
+    required_group = get_user_group_by_name(group_name)
+    return has_rank(user_id, required_group.rank)
+
+def has_rank(user_id, min_rank):
+    user_group = get_user_group(user_id)
+    # Is the users rank equal or greater than the required group rank
+    return min_rank <= user_group.rank
+    
 def populate_session(user):
     session["id"] = user.id
     session["username"] = user.username
