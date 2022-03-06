@@ -1,0 +1,22 @@
+{% extends "layout.j2" %}
+
+{% macro render_result(post) -%}
+    <div class="post">
+        {{ render_post_info(post) }}
+        <div class="message">
+            <p>{{ post.content_body | e }}</p>
+            <a href="{{ url_for('thread.show_thread', thread_id=post.thread_id) }}">Go to thread »</a>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+{%- endmacro %}
+
+{% block title %}Search results{% endblock %}
+{% block header %}<h1>Search results for "{{ query | e }}"</h1>{% endblock %}
+{% block content %}
+    <div class="search-results">
+        {% for post in results %}
+            {{ render_result(post) }}
+        {% endfor %}
+    </div>
+{% endblock %}

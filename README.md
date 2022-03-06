@@ -21,7 +21,7 @@ KeskusteluApp on toteutettu käyttäen Pythonin [Flask](https://palletsprojects.
 - [x] Keskusteluketjun lueminen & muokkaaminen
 - [x] Keskusketjuun viestin lisääminen & muokkaaminen
 - [ ] Oikeuksien tarkastaminen/hallinta
-- [ ] Haku
+- [x] Haku
 - [ ] Moderointi
 - [ ] Profiilikuvat
 - [ ] Sisällön postaminen

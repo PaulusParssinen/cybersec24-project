@@ -1,0 +1,13 @@
+{% extends "layout.j2" %}
+
+{% block title %}Search{% endblock %}
+{% block header %}<h1>Search</h1>{% endblock %}
+{% block content %}
+<form action="{{ url_for('root.search') }}" method="post">
+    <p>
+        <label for="query">Search query</label>
+        <input type="text" name="query" placeholder="Text you want to search for.."/>
+    </p>
+    <input class="accent-fill" type="submit" value="Search">
+</form>
+{% endblock %}

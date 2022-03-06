@@ -46,3 +46,22 @@ def register():
         return redirect(url_for("root.register"))
 
     return redirect(url_for("root.index"))
+
+@root_bp.route("/search", methods=["GET", "POST"])
+def search():
+    if request.method == "GET":
+        return render_template("search.j2")
+
+    query = request.form["query"].strip()
+
+    if not query:
+        flash("The search query was empty. Please provide valid search query.", "error")
+        return redirect(url_for("root.search"))
+    
+    query_results = post.search(query)
+    
+    if not query_results:
+        flash("No results were found for the search query!", "error")
+        return redirect(url_for("root.search"))
+
+    return render_template("search_results.j2", query=query, results=query_results)

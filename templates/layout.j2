@@ -1,13 +1,22 @@
+{% macro render_post_info(post) -%}
+    <div class="info">
+        <h3>
+            <a href="{{ url_for('user.show_profile', user_id=post.user_id) }}">{{ post.user_id | username | e }}</a>
+        </h3>
+        <p class="text-small lighter">{{ post.created_at | date }}</p>
+    </div>
+{%- endmacro %}
+
 {% macro render_post(post) -%}
     <div class="post">
-        <a href="{{ url_for('user.show_profile', user_id=post.user_id) }}">
-            <h3>{{ post.user_id | username | e }}</h3>
-        </a>
-        <p>{{ post.content_body | e }}</p>
-        {% if post.user_id == session.id %}
-            <a href="{{ url_for('thread.edit_post', thread_id=post.thread_id, post_id=post.id) }}">Edit</a>
-            {# <a href="{{ url_for('thread.delete_post', thread_id=post.thread_id, post_id=post.id) }}">Delete</a>#}
-        {% endif %}
+        {{ render_post_info(post) }}
+        <div class="message">
+            <p>{{ post.content_body | e }}</p>
+            {% if post.user_id == session.id %}
+                <a href="{{ url_for('thread.edit_post', thread_id=post.thread_id, post_id=post.id) }}">Edit</a>
+                {# <a href="{{ url_for('thread.delete_post', thread_id=post.thread_id, post_id=post.id) }}">Delete</a>#}
+            {% endif %}
+        </div>
         <div style="clear: both;"></div>
     </div>
 {%- endmacro %}
@@ -58,6 +67,7 @@
     <div id="menu">
         {% if session.id %}
             <span>{{ session.username|e }}</span>
+            <a href="{{ url_for('root.search') }}">Search</a>
             <a href="{{ url_for('root.logout') }}">Log Out</a>
         {% else %}
             <a href="{{ url_for('root.index') }}">Home</a>

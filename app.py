@@ -6,8 +6,11 @@ from flask import Flask
 from chatapp.db import db
 from chatapp.route import root_bp, user_bp, board_bp, thread_bp, moderation_bp
 
-def short_date(value):
-    return datetime.fromisoformat(str(value)).strftime("%m/%d/%y")
+def format_short_date(value):
+    return datetime.fromisoformat(str(value)).strftime("%x")
+
+def format_date(value):
+    return datetime.fromisoformat(str(value)).strftime("%x %X")
 
 def get_username_filter(id):
     sql = "SELECT username FROM users WHERE id=:id"
@@ -24,7 +27,8 @@ def create_app(show_routes=False):
     
     # Register Jinja filter
     app.jinja_env.filters["username"] = get_username_filter
-    app.jinja_env.filters["short_date"] = short_date
+    app.jinja_env.filters["short_date"] = format_short_date
+    app.jinja_env.filters["date"] = format_date
     
     # Register routes
     app.register_blueprint(root_bp)

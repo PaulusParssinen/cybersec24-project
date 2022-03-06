@@ -38,4 +38,6 @@ def delete(id):
     except BaseException as ex:
         current_app.logger.error(ex)
 
-def search(search_text): pass
+def search(text):
+    sql = "SELECT * FROM posts WHERE content_body LIKE :text"
+    return db.session.execute(sql, { "text": "%" + text + "%" })

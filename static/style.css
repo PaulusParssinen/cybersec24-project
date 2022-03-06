@@ -18,7 +18,8 @@
     --border-color: rgba(255,255,255,0.24);
     --border-color-secondary: rgba(255,255,255,0.08);
     --border-color-tertiary: rgba(0,0,0,0.40);
-    --divider-color: rgba(255,255,255,0.12);
+
+    --seperator-color: rgba(255,255,255,0.16);
 }
 
 body {
@@ -66,12 +67,12 @@ a {
 a:hover {
     text-decoration: underline var(--accent-text);
 }
-a .lighter {
+.lighter {
     opacity: 0.5;
 }
 
 .text-small {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 nav #menu {
@@ -142,7 +143,6 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
     outline: none;
 } 
 
-
 .center {
     text-align: center;
 }
@@ -167,8 +167,6 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
     color: rgb(0, 166, 0);
 }
 
-
-
 .row {
     background-color: var(--bg-tertiary);
     overflow: auto;
@@ -187,4 +185,11 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
     float: left;
     width: 66%;
 }
-.reply-column { }
+
+.post .info {
+    padding-top: 24px;
+}
+
+.post .message {
+    border-bottom: 1px solid var(--seperator-color);
+}
