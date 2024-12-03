@@ -52,6 +52,3 @@ INSERT INTO user_groups (rank, name) VALUES (5, 'Moderator');
 INSERT INTO user_groups (rank, name) VALUES (10, 'Administrator');
 
 INSERT INTO boards (name, description) VALUES ('General', 'This board is for general discussion.');
-
-INSERT INTO users (username, password, user_group_id) VALUES ('Admin', 'pbkdf2:sha256:260000$Bht3OdPf60PRcoIe$b69fc6a93b7fc2b650acb4e0f5c50259eda51bc77b945a7217e22acd31271bae', 3); -- 'admin123'
-INSERT INTO users (username, password, user_group_id) VALUES ('Demo', 'pbkdf2:sha256:260000$n8t5e2XxPiEdDgbA$c528be036bb260f8d8d78455f74f9be58a9bb3d8b6b16afc9dfa19dccccc639f', 1); -- 'demo123'
