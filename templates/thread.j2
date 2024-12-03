@@ -21,7 +21,7 @@
     <div class="add-reply">
         {% if session.id %}
             <form action="{{ url_for('thread.add_post', thread_id=thread.id) }}" method="post">
-                {# {{ add_csrf_token() }} #}
+                {{ add_csrf_token() }}
                 <p>
                     <label for="body">Message</label>
                     <textarea name="body" rows="5"></textarea>

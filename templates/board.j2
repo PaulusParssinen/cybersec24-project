@@ -11,7 +11,7 @@
     <div class="board-bottom">
         {% if is_mod(session) %}
             <form action="{{ url_for('board.delete_board', board_id=board.id) }}" method="post">
-                {# {{ add_csrf_token() }} #}
+                {{ add_csrf_token() }}
                 <input class="float-right accent-fill" type="submit" value="Delete board">
             </form>
         {% endif %}

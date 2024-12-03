@@ -12,7 +12,7 @@ def show_board(board_id):
 
 @board_bp.route("/create", methods=["GET", "POST"])
 @group_required("Administrator")
-# @csrf
+@csrf
 def create_board():
     if request.method == "GET":
         return render_template("create_board.j2")
@@ -30,7 +30,7 @@ def create_board():
 
 @board_bp.route("/<int:board_id>/new", methods=["GET", "POST"])
 @authenticated
-# @csrf
+@csrf
 def create_thread(board_id):
     if request.method == "GET":
         return render_template("create_thread.j2", board_id=board_id)
@@ -48,7 +48,7 @@ def create_thread(board_id):
 
 @board_bp.route("/<int:board_id>/delete", methods=["POST"])
 @group_required("Administrator")
-# @csrf
+@csrf
 def delete_board(board_id):
     board.delete(board_id)
     

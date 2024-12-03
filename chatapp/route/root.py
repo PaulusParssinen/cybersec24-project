@@ -67,7 +67,7 @@ def register():
 
 @root_bp.route("/search", methods=["GET", "POST"])
 @authenticated
-# @csrf
+@csrf
 def search():
     if request.method == "GET":
         return render_template("search.j2")

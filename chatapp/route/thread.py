@@ -11,7 +11,7 @@ def show_thread(thread_id):
 
 @thread_bp.route("/<int:thread_id>/edit", methods=["GET", "POST"])
 @authenticated
-# @csrf
+@csrf
 def edit_thread(thread_id):
     if request.method == "GET":
         return render_template("edit_thread.j2", thread=thread.get(thread_id))
@@ -50,7 +50,7 @@ def delete_thread(thread_id):
 
 @thread_bp.route("/<int:thread_id>", methods=["POST"])
 @authenticated
-# @csrf
+@csrf
 def add_post(thread_id):
     created_post = post.create(thread_id, user.current_user_id(), request.form["body"])
     if not created_post:
@@ -62,7 +62,7 @@ def add_post(thread_id):
 
 @thread_bp.route("/<int:thread_id>/<int:post_id>/edit", methods=["GET", "POST"])
 @authenticated
-# @csrf
+@csrf
 def edit_post(thread_id, post_id):
     if request.method == "GET":
         return render_template("edit_post.j2", post=post.get(post_id))
