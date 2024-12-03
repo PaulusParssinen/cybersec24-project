@@ -5,8 +5,9 @@ def create(thread_id, user_id, body):
     try:
         sql = "INSERT INTO posts (thread_id, user_id, content_body) VALUES (:thread_id, :user_id, :content_body) RETURNING id"
         result = db.session.execute(sql, { "thread_id": thread_id, "user_id": user_id, "content_body": body })
+        post = result.fetchone()
         db.session.commit()
-        return result.fetchone()
+        return post
     except BaseException as ex:
         current_app.logger.error(ex)
     return None
@@ -23,8 +24,9 @@ def update(id, body):
     try:
         sql = "UPDATE posts SET content_body=:content_body WHERE id=:id RETURNING *"
         result = db.session.execute(sql, { "id": id, "content_body": body })
+        updated_post = result.fetchone()
         db.session.commit()
-        return result.fetchone()
+        return updated_post
     except BaseException as ex:
         current_app.logger.error(ex)
     return None

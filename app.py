@@ -23,8 +23,28 @@ def create_app(show_routes=False):
     app.config["AVATAR_DIRECTORY"] = getenv("AVATAR_DIRECTORY")
     app.secret_key = getenv("SECRET_KEY")
     
+    app.logger.setLevel(getenv("LOG_LEVEL", "INFO"))
+
     # Init database
     db.init_app(app)
+
+    # If the database is in memory, we need seed it with schema.sql:
+    if app.config["SQLALCHEMY_DATABASE_URI"] == "sqlite:///:memory:":
+        with app.app_context():
+          app.logger.info("In-memory database configuration detected, creating database schema..")
+          with db.engine.connect() as connection:
+            underlying_connection = connection.connection
+            cursor = underlying_connection.cursor()
+            try:
+              with open("schema.sql") as f:
+                cursor.executescript(f.read())
+              underlying_connection.commit()
+            except Exception as e:
+              underlying_connection.rollback()
+              print(f"Error initializing database: {e}")
+            finally:
+              cursor.close()
+              app.logger.info("In-memory database schema created!")
     
     # Register Jinja filter
     app.jinja_env.filters["username"] = get_username_filter

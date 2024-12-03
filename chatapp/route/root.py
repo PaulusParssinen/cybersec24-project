@@ -47,12 +47,8 @@ def register():
     password_again = request.form["password_again"].strip()
     
     has_error = False
-    if len(username) < 6:
-        flash("Username must be atleast 6 characters long.", "error")
-        has_error |= True
-    
-    if len(password) < 6:
-        flash("Password must be atleast 6 characters long.", "error")
+    if len(username) < 3:
+        flash("Username must be atleast 3 characters long.", "error")
         has_error |= True
     
     # Do not flood user with errors, check match only if we dont have earlier validation error
@@ -71,7 +67,7 @@ def register():
 
 @root_bp.route("/search", methods=["GET", "POST"])
 @authenticated
-@csrf
+# @csrf
 def search():
     if request.method == "GET":
         return render_template("search.j2")

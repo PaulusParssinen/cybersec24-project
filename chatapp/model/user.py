@@ -1,6 +1,13 @@
+import hashlib
 from flask import session, current_app
 from chatapp.db import db
-from werkzeug.security import check_password_hash, generate_password_hash, secrets
+from werkzeug.security import secrets #, check_password_hash, generate_password_hash
+
+def generate_password_hash(password):
+    return hashlib.md5(password.encode()).hexdigest()
+
+def check_password_hash(password_hash, password):
+    return password_hash == generate_password_hash(password)
 
 def create(username, password):
     password_hash = generate_password_hash(password)
@@ -36,8 +43,9 @@ def update(id, username):
     try:
         sql = "UPDATE users SET username=:username WHERE id=:id RETURNING *"
         result = db.session.execute(sql, { "id": id, "username": username })
+        updated_user = result.fetchone()
         db.session.commit()
-        return result.fetchone()
+        return updated_user
     except BaseException as ex:
         current_app.logger.error(ex)
     return None

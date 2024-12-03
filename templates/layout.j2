@@ -13,7 +13,7 @@
     <div class="post">
         {{ render_post_info(post) }}
         <div class="message">
-            <p>{{ post.content_body | e }}</p>
+            <p>{{ post.content_body }}</p>
             {% if post.user_id == session.id or is_mod(session) %}
                 <a href="{{ url_for('thread.edit_post', thread_id=post.thread_id, post_id=post.id) }}">Edit</a>
                 <a href="{{ url_for('thread.delete_post', thread_id=post.thread_id, post_id=post.id) }}">Delete</a>
