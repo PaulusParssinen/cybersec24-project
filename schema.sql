@@ -54,4 +54,4 @@ INSERT INTO user_groups (rank, name) VALUES (10, 'Administrator');
 INSERT INTO boards (name, description) VALUES ('General', 'This board is for general discussion.');
 
 INSERT INTO users (username, password, user_group_id) VALUES ('Admin', '0192023a7bbd73250516f069df18b500', 3); -- md5('admin123')
-INSERT INTO users (username, password, user_group_id) VALUES ('Test', '62cc2d8b4bf2d8728120d052163a77df', 1); -- md5('demo123')
+INSERT INTO users (username, password, user_group_id) VALUES ('Demo', '62cc2d8b4bf2d8728120d052163a77df', 1); -- md5('demo123')
