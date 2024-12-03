@@ -1,13 +1,6 @@
-import hashlib
 from flask import session, current_app
 from chatapp.db import db
-from werkzeug.security import secrets #, check_password_hash, generate_password_hash
-
-def generate_password_hash(password):
-    return hashlib.md5(password.encode()).hexdigest()
-
-def check_password_hash(password_hash, password):
-    return password_hash == generate_password_hash(password)
+from werkzeug.security import secrets, check_password_hash, generate_password_hash
 
 def create(username, password):
     password_hash = generate_password_hash(password)
