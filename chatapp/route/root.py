@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from chatapp.model import user, board, thread, post
 from chatapp.route import authenticated, guest, csrf
+from string import digits, punctuation
 
 root_bp = Blueprint("root", __name__)
 
@@ -51,6 +52,22 @@ def register():
         flash("Username must be atleast 3 characters long.", "error")
         has_error |= True
     
+    if len(password) < 8:
+        flash("Password must be atleast 8 characters long.", "error")
+        has_error |= True
+    
+    if not any(c in digits for c in password):
+        flash("Password must contain atleast one digit.", "error")
+        has_error |= True
+    
+    if not any(c in punctuation for c in password):
+        flash("Password must contain atleast one special character.", "error")
+        has_error |= True
+
+    if password_again != password:
+        flash("The passwords don't match!", "error")
+        has_error |= True
+
     # Do not flood user with errors, check match only if we dont have earlier validation error
     if not has_error and password != password_again:
         flash("The passwords don't match!", "error")
