@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from chatapp.model import user, board, thread, post
 from chatapp.route import authenticated, guest, csrf
+from chatapp.limiter import limiter
 from string import digits, punctuation
 
 root_bp = Blueprint("root", __name__)
@@ -16,6 +17,7 @@ def index():
 
 @root_bp.route("/login", methods=["GET", "POST"])
 @guest
+@limiter.limit("10 per hour")
 def login():
     if request.method == "GET":
         return render_template("login.j2")

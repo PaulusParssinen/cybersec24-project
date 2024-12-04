@@ -4,6 +4,7 @@ from datetime import datetime
 from flask import Flask
 
 from chatapp.db import db
+from chatapp.limiter import limiter
 from chatapp.route import root_bp, user_bp, board_bp, thread_bp, moderation_bp
 from chatapp.model.user import is_admin, is_mod
 
@@ -46,6 +47,9 @@ def create_app(show_routes=False):
               cursor.close()
               app.logger.info("In-memory database schema created!")
     
+    # Initializer Rate Limiter
+    limiter.init_app(app)
+
     # Register Jinja filter
     app.jinja_env.filters["username"] = get_username_filter
     app.jinja_env.filters["short_date"] = format_short_date
